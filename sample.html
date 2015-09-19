@@ -1,0 +1,93 @@
+<html>
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+ 
+  <div class="jumbotron text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col col-lg-12 col-sm-12">
+            <h1>Fearch</h1>
+            <p>Use this federated search tool to look for your favourite contents.</p>
+          </div>
+        </div>
+      </div> 
+  </div>
+
+  <div class="container">
+
+      <script id="fearchables-template" type="text/x-handlebars-template">
+          {{#results}}
+          <li><a href="#" class="small" tabIndex="-1"><input id="{{checkBoxValue}}" type="checkbox" class="search-areas" /> {{label}}</a></li>
+          {{/results}}
+      </script>
+
+      <div class="row">
+          <div class="col-lg-12 text-center"><div class="well">
+            
+            <form id="fearch-form" class="form-inline center">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control input-lg" id="fearch-text" style="width:400px" />
+                     <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-grain"></span> <span class="caret"></span></button>
+                          <ul id="fearchables-input" class="dropdown-menu"></ul>
+                    </span>
+
+                </div>
+              </div>
+
+                <div class="btn-group" role="group" aria-label="...">
+                  <button type="button" id="fearch-button" class="btn btn-default btn-success btn-lg">Search!</button>
+                </div>
+
+          </form>
+      </div>
+
+      <div class="row">
+          <div class="col-lg-12">
+            <p>
+                <div id="body-fearch-results" class="body-contents" style="display:none">
+                  <div>
+                      <div id="fearch-result-list-panel">
+                          <div class="txthead">Search Results</div>
+                          <div>
+                              <ul id="result-tab-nav" class="nav nav-tabs" role="tablist"></ul>
+                              <div id="result-tab" class="tab-content"></div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </p>
+          </div>
+      </div>
+
+      <hr>
+  </div>
+  <hr>
+  <!-- /CONTENT -->
+
+   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+   <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.2/handlebars.js"></script>
+   <script src="jQuery.fearch.js"></script>
+
+  <script>
+    
+    jQuery(document).ready(function($) {
+
+      Fearchy.initiate();
+
+    });
+
+  </script>
+
+</body>
+</html>
+
