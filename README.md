@@ -19,7 +19,6 @@ Explanation available in the jQuery.fearch.js
 7. Enjoy!
 
 ## Adding more sources
-You will be able to customize the library by adding more source objects
 1. in the config.source object, copy+paste an existing object.
 2. specify / change the parameters (More details available in the js file)
 3. Copy paste the searchGoogle function and rename it based on the config.source.<yoursourceid>.method value 
