@@ -280,7 +280,7 @@ var Fearchy = {
 
         $resultHeader = $(document).find('#result-tab-nav');
 
-        self.cacheGoogleResults(searchValue).then(function (results) {
+        self.cacheGoogleResults(item.key, searchValue).then(function (results) {
 
             var tableAPI = self.config.fearchContainer.tableAPIs[item.key];
 
@@ -301,10 +301,11 @@ var Fearchy = {
     /*
      * caches the result from source search
      * 
+     * @param {string} sourceId - id or the object name of the source
      * @param {string} searchValue - search keyword
      * @returns {object} a deferred promise
      */
-    cacheGoogleResults: function (searchValue) {
+    cacheGoogleResults: function (sourceId, searchValue) {
 
         var $deferred = new $.Deferred(),
             startNumber = 1,
@@ -315,7 +316,7 @@ var Fearchy = {
 
         for (var ii = 0; ii < resolveCounterLimit; ii++) {
 
-            Fearchy.getResultsFromGoogle(searchValue, startNumber)
+            Fearchy.getResultsFromGoogle(sourceId, searchValue, startNumber)
             .done(function (data, textStatus, jqXHR) {
 
                 if (data.responseData == null) {
@@ -348,23 +349,25 @@ var Fearchy = {
     /*
      * Calls the source API and gets the result
      * 
+     * @param {string} sourceId - id or the object name of the source
      * @param {string} searchValue - search keyword
      * @param {number} startNumber - the starting number of search at source
      * @returns {object} a deferred promise
      */
-    getResultsFromGoogle: function (searchValue, startNumber) {
+    getResultsFromGoogle: function (sourceId, searchValue, startNumber) {
         var self = this;
 
         return $.ajax(
         {
             type: 'GET',
             dataType: 'jsonp',
-            url: self.config.sources.google.apiUrl + searchValue + '&start=' + startNumber + '&callback=?'
+            url: self.config.sources[sourceId].apiUrl + searchValue + '&start=' + startNumber + '&callback=?'
         }).promise();
     },
 
     /*
      * Shows result from source search
+     * 
      * @param {number} index - index of the object from the caller
      * @param {object} item - tab parameters
      * @param {string} searchValue - search keyword
@@ -376,7 +379,7 @@ var Fearchy = {
         console.log(this);
         $resultHeader = $(document).find('#result-tab-nav');
 
-        self.cacheGoogleBooksResults(searchValue).then(function (results) {
+        self.cacheGoogleBooksResults(item.key, searchValue).then(function (results) {
 
             var tableAPI = self.config.fearchContainer.tableAPIs[item.key];
 
@@ -408,11 +411,12 @@ var Fearchy = {
     /*
      * caches the result from source search
      * 
+     * @param {string} sourceId - id or the object name of the source
      * @param {string} searchValue - search keyword
      * @returns {object} a deferred promise
      */
 
-    cacheGoogleBooksResults: function (searchValue) {
+    cacheGoogleBooksResults: function (sourceId, searchValue) {
 
         var $deferred = new $.Deferred(),
             startNumber = 1,
@@ -423,7 +427,7 @@ var Fearchy = {
 
         for (var ii = 0; ii < resolveCounterLimit; ii++) {
 
-            Fearchy.getResultsFromGoogleBooks(searchValue, startNumber)
+            Fearchy.getResultsFromGoogleBooks(sourceId, searchValue, startNumber)
             .done(function (data, textStatus, jqXHR) {
 
                 if (data.items.length < 1) {
@@ -455,25 +459,27 @@ var Fearchy = {
 
     /*
      * Shows result from source search
+     * 
+     * @param {string} sourceId - id or the object name of the source
      * @param {number} index - index of the object from the caller
      * @param {object} item - tab parameters
      * @param {string} searchValue - search keyword
      */
-    getResultsFromGoogleBooks: function (searchValue, startNumber) {
+    getResultsFromGoogleBooks: function (sourceId, searchValue, startNumber) {
         var self = this;
 
         return $.ajax(
         {
             type: 'GET',
             dataType: 'jsonp',
-            url: self.config.sources.googleBooks.apiUrl + searchValue + '&startIndex=' + startNumber + '&maxResults=40'
+            url: self.config.sources[sourceId].apiUrl + searchValue + '&startIndex=' + startNumber + '&maxResults=40'
         }).promise();
     },
 
     /*
      * Applies the jQuery.DataTables library on a DOM element
+     * 
      * @param {string} targetClass - an id or class of element(s)
-
      * @returns {object} returns the DataTable object
      */
      initDataTableAPIDefault: function (targetClass) {
