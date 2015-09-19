@@ -10,7 +10,9 @@ Explanation available in the jQuery.fearch.js
 4. Handlebars 4.0.2 
 
 ## Use Guide
-1. Load the sample file on the browser
+1. Clone / download fearcy
+2. host it (local machine or service provider)
+3. access the sample.html
 2. The search screen will have 3 options (search text input, search source selection and a search button)
 3. perform your search (make sure to select multiple sources)
 4. the result of the search will be presented below the search form in tabs
